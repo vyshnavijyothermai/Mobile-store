@@ -1,0 +1,35 @@
+doctype html
+html(lang='en', ng-app='MobileStore')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Mobile Store
+    link(href='css/bootstrap.min.css', rel='stylesheet')
+  body.container
+    .row
+      .col-md-12
+        h2.page-header Mobile Store
+    .row(ng-controller='StoreController as store')
+      .col-md-4(ng-repeat='mobile in store.mobiles track by $index')
+        img(ng-src='{{mobile.image}}', width='290px', height='290px')
+        p NAME : {{mobile.name}}
+        p Color : {{mobile.color}}
+        p Memory : {{mobile.memory}}
+        p Price : ₹ {{mobile.price}}
+        button.btn.btn-default(type='button', ng-hide='{{mobile.isSoldOut}}') BUY NOW
+        ul.nav.nav-tabs
+          li(role='presentation', ng-class="{'active':mobile.activeTab==='Description'}")
+            a(ng-click="store.setActiveTab(mobile,'Description')") Description
+          li(role='presentation', ng-class="{'active':mobile.activeTab==='Specifications'}")
+            a(ng-click="store.setActiveTab(mobile,'Specifications')") Specifications
+          li(role='presentation', ng-class="{'active':mobile.activeTab==='Reviews'}")
+            a(ng-click="store.setActiveTab(mobile,'Reviews')") Reviews
+        p(ng-show="mobile.activeTab==='Description'")
+          | Description goes here
+        p(ng-show="mobile.activeTab==='Specifications'")
+          | Specifications goes here
+        p(ng-show="mobile.activeTab==='Reviews'")
+          | Reviews goes here
+    script(src='angular.min.js')
+    script(src='app.js')
